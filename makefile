@@ -35,6 +35,7 @@ CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
 
+
 PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
@@ -89,5 +90,5 @@ clean:
 .PRECIOUS: $(PATHR)%.txt
 
 archive:
-	gcc -Iunity/src/ -Itest -Isrc test/testExample.c src/example.c ./unity/src/unity.c -o TestExample.exe
+	gcc -Iunity/src/ -Itest -Isrc test/testExample.c src/example.c ./unity/src/unity.c -o TestExample
 	./TestExample
