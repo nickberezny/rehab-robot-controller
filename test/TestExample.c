@@ -1,4 +1,4 @@
-#include "unity.h"
+#include "../unity/src/unity.h"
 #include "Example.h"
 
 void setUp (void) {} /* Is run before every test, put unit init calls here. */

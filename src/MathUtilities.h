@@ -1,0 +1,1 @@
+void squareMatrix(double A[2][2], double C[2][2]);

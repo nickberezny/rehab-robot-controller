@@ -7,9 +7,13 @@
 #ifndef UNITY_INTERNALS_H
 #define UNITY_INTERNALS_H
 
+
+
 #ifdef UNITY_INCLUDE_CONFIG_H
 #include "unity_config.h"
 #endif
+
+
 
 #ifndef UNITY_EXCLUDE_SETJMP_H
 #include <setjmp.h>
@@ -45,6 +49,9 @@
 #else
 #    define UNITY_FUNCTION_ATTR(a) /* ignore */
 #endif
+
+
+
 
 /*-------------------------------------------------------
  * Guess Widths If Not Specified
@@ -187,9 +194,9 @@
 #ifdef UNITY_EXCLUDE_FLOAT
 
 /* No Floating Point Support */
-#ifndef UNITY_EXCLUDE_DOUBLE
-#define UNITY_EXCLUDE_DOUBLE /* Remove double when excluding float support */
-#endif
+//#ifndef UNITY_EXCLUDE_DOUBLE
+//#define UNITY_EXCLUDE_DOUBLE /* Remove double when excluding float support */
+//#endif
 #ifndef UNITY_EXCLUDE_FLOAT_PRINT
 #define UNITY_EXCLUDE_FLOAT_PRINT
 #endif
@@ -228,7 +235,7 @@ typedef UNITY_FLOAT_TYPE UNITY_FLOAT;
 
   /* No Floating Point Support */
   #ifndef UNITY_EXCLUDE_DOUBLE
-  #define UNITY_EXCLUDE_DOUBLE
+  //#define UNITY_EXCLUDE_DOUBLE
   #else
     #undef UNITY_INCLUDE_DOUBLE
   #endif

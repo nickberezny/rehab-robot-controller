@@ -1,0 +1,5 @@
+test/TestMathUtilities.c:39:test_matrixSquare:PASS
+
+-----------------------
+1 Tests 0 Failures 0 Ignored 
+OK

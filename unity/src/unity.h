@@ -8,6 +8,8 @@
 #define UNITY_FRAMEWORK_H
 #define UNITY
 
+#define UNITY_INCLUDE_CONFIG_H
+
 #define UNITY_VERSION_MAJOR    2
 #define UNITY_VERSION_MINOR    5
 #define UNITY_VERSION_BUILD    1
@@ -18,7 +20,9 @@ extern "C"
 {
 #endif
 
+
 #include "unity_internals.h"
+
 
 /*-------------------------------------------------------
  * Test Setup / Teardown
