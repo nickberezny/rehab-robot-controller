@@ -1,5 +1,7 @@
-test/TestMathUtilities.c:39:test_matrixSquare:PASS
+test/TestMathUtilities.c:67:test_squareMatrix:PASS
+test/TestMathUtilities.c:68:test_factorial:PASS
+test/TestMathUtilities.c:69:test_invertMatrix:PASS
 
 -----------------------
-1 Tests 0 Failures 0 Ignored 
+3 Tests 0 Failures 0 Ignored 
 OK
