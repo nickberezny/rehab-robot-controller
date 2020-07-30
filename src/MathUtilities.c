@@ -70,7 +70,7 @@ Uses MAT_EXP_ITERATIONS iterations for numerical estimate
 	{
 		k = 1.0;
 		factorial(i+1, &k);
-		matrix_square(D, C);
+		squareMatrix(D, C);
 	
 		for(int j = 0; j<2; j++) 
 		{

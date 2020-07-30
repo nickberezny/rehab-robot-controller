@@ -6,5 +6,7 @@
 
 #define MAT_EXP_ITERATIONS 15 //number of iterations for matrix exp approximation
 
+#define LINUX_SCHEDULER SCHED_RR //cpu scheduler, choose from: SCHED_FIFO, SCHED_RR, SCHED_DEADLINE
+
 
 #endif 

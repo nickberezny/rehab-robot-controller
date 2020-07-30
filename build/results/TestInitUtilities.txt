@@ -1,0 +1,5 @@
+test/TestInitUtilities.c:19:test_initThread:PASS
+
+-----------------------
+1 Tests 0 Failures 0 Ignored 
+OK

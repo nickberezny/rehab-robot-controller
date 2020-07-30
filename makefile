@@ -32,6 +32,7 @@ COMPILE=gcc -c
 LINK=gcc
 DEPEND=gcc -MM -MG -MF 
 CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST 
+LIB=-lm -lpthread 
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
 
@@ -53,16 +54,16 @@ $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
 	-./$< > $@ 2>&1
 
 $(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHU)unity.o #$(PATHD)Test%.d
-	$(LINK) -o $@ $^
+	$(LINK) -o $@ $^ $(LIB)
 
 $(PATHO)%.o:: $(PATHT)%.c
-	$(COMPILE) $(CFLAGS) $< -o $@
+	$(COMPILE) $(CFLAGS) $< -o $@ $(LIB)
 
 $(PATHO)%.o:: $(PATHS)%.c
-	$(COMPILE) $(CFLAGS) $< -o $@
+	$(COMPILE) $(CFLAGS) $< -o $@ $(LIB)
 
 $(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
-	$(COMPILE) $(CFLAGS) $< -o $@
+	$(COMPILE) $(CFLAGS) $< -o $@ $(LIB)
 
 $(PATHD)%.d:: $(PATHT)%.c
 	$(DEPEND) $@ $<
