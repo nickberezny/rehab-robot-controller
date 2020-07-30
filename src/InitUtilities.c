@@ -44,26 +44,3 @@ bool initThread(pthread_attr_t * attr, struct sched_param * param, int priority)
 
 }
 
-bool init_sock(struct socket_data * sock) 
-{
-
-/*------------------------------------------------------------------------
-    Create a tcp socket for communication with node server (UI) 
-------------------------------------------------------------------------*/
-    
-    sock->opt = 1;
-    
-    sock->server_fd = socket(AF_INET, SOCK_STREAM, 0);
-    
-    setsockopt(sock->server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
-        &(sock->opt), sizeof(sock->opt));
-    sock->address.sin_family = AF_INET;
-    sock->address.sin_port = htons( GAME_PORT );
-    inet_pton(AF_INET, "127.0.0.1", &sock->address.sin_addr);
-
-    bind(sock->server_fd, (struct sockaddr *)&(sock->address), sizeof(sock->address));
-    listen(sock->server_fd, 3);
-
-    
-    return true;
-}
