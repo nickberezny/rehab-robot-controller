@@ -24,7 +24,7 @@ PATHB = build/
 PATHD = build/depends/
 PATHO = build/objs/
 PATHR = build/results/
-PATHX = build/test/
+PATHX = build/dist/
 
 
 BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
