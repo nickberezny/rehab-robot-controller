@@ -15,6 +15,7 @@ endif
 
 .PHONY: clean
 .PHONY: test
+.PHONY: build
 
 PATHU = unity/src/
 PATHS = src/
@@ -23,10 +24,13 @@ PATHB = build/
 PATHD = build/depends/
 PATHO = build/objs/
 PATHR = build/results/
+PATHX = build/test/
+
 
 BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
 
 SRCT = $(wildcard $(PATHT)*.c)
+SRCS = $(wildcard $(PATHS)*.c)
 
 COMPILE=gcc -c 
 LINK=gcc
@@ -65,6 +69,10 @@ $(PATHO)%.o:: $(PATHS)%.c
 $(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
 	$(COMPILE) $(CFLAGS) $< -o $@ $(LIB)
 
+$(PATHX)%.$:: $(PATHS)%.c
+	$(COMPILE) $(CFLAGS) $< -o $@ $(LIB)
+
+
 $(PATHD)%.d:: $(PATHT)%.c
 	$(DEPEND) $@ $<
 
@@ -80,6 +88,13 @@ $(PATHO):
 $(PATHR):
 	$(MKDIR) $(PATHR)
 
+$(PATHX):
+	$(MKDIR) $(PATHX)
+
+
+
+
+
 clean:
 	$(CLEANUP) $(PATHO)*.o
 	$(CLEANUP) $(PATHB)*.$(TARGET_EXTENSION)
@@ -89,6 +104,14 @@ clean:
 .PRECIOUS: $(PATHD)%.d
 .PRECIOUS: $(PATHO)%.o
 .PRECIOUS: $(PATHR)%.txt
+
+
+build: $(PATHX) 
+	gcc $(SRCS) -o $(PATHX)test $(CFLAGS) $(LIB)
+
+run: build
+	./$(PATHX)test
+
 
 archive:
 	gcc -Iunity/src/ -Itest -Isrc test/testExample.c src/example.c ./unity/src/unity.c -o TestExample
