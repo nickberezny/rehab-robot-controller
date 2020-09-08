@@ -1,0 +1,8 @@
+test/TestInitUtilities.c:46:test_initThread:PASS
+test/TestInitUtilities.c:47:test_initSock:PASS
+test/TestInitUtilities.c:48:test_initMemory:PASS
+test/TestInitUtilities.c:49:test_initDataLog:PASS
+
+-----------------------
+4 Tests 0 Failures 0 Ignored 
+OK

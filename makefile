@@ -55,7 +55,7 @@ test: $(BUILD_PATHS) $(RESULTS)
 	@echo "\nDONE"
 
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
-	-./$< > $@ 2>&1
+	./$< > $@ 
 
 $(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHU)unity.o #$(PATHD)Test%.d
 	$(LINK) -o $@ $^ $(LIB)
@@ -114,5 +114,5 @@ run: build
 
 
 archive:
-	gcc -Iunity/src/ -Itest -Isrc test/testExample.c src/example.c ./unity/src/unity.c -o TestExample
+	gcc -Iunity/src/ -Itest -Isrc test/TestExample.c src/example.c ./unity/src/unity.c -o TestExample
 	./TestExample

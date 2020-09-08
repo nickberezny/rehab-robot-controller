@@ -1,0 +1,5 @@
+test/TestTime.c:55:test_getStepTime:PASS
+
+-----------------------
+1 Tests 0 Failures 0 Ignored 
+OK

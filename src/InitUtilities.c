@@ -1,7 +1,37 @@
-#include <pthread.h>
+ #include <pthread.h>
 
 #include "InitUtilities.h"
 #include "SystemVariables.h"
+
+void runFakeSocket(void * d)
+{
+    //char str = (char)d;
+
+    printf("FakeSocket is running ...\n");
+    
+    int f_listen_fd = 0, f_conn_fd = 0;
+
+    struct sockaddr_in f_serv_addr;
+    initSock(&f_serv_addr, &f_listen_fd, PORT);
+    
+    //start tcp socket
+    bind(f_listen_fd, (struct sockaddr*)&f_serv_addr, sizeof(f_serv_addr)); 
+    listen(f_listen_fd, 100);
+
+    f_conn_fd = accept(f_listen_fd, (struct sockaddr*)NULL, NULL);
+
+    char str[] = "Hi";
+
+    send(f_conn_fd, str, strlen(str), 0);
+
+    close(f_conn_fd);
+    close(f_listen_fd);
+    
+
+    return;
+
+
+}
 
 bool initThread(pthread_attr_t * attr, struct sched_param * param, int  priority[], int numberOfThreads)
 {
@@ -10,7 +40,7 @@ bool initThread(pthread_attr_t * attr, struct sched_param * param, int  priority
         Create a thread with priority and scheduler (set in imp_variables)
     ------------------------------------------------------------------------*/
 
-    for(int i=0; i>numberOfThreads; i++)
+    for(int i=0; i<numberOfThreads; i++)
     {
         // Initialize pthread attributes (default values) 
         if (pthread_attr_init(&attr[i])) {
@@ -29,7 +59,7 @@ bool initThread(pthread_attr_t * attr, struct sched_param * param, int  priority
             printf("pthread setschedpolicy failed \n");
             return false;
         }
-        param[i].sched_priority = priority[i]; //priority (0-99)
+        param[i].sched_priority = 98; //priority (0-99)
 
         if (pthread_attr_setschedparam(&attr[i], &param[i])) {
             printf("pthread setschedparam failed \n");
@@ -50,13 +80,15 @@ bool initThread(pthread_attr_t * attr, struct sched_param * param, int  priority
 
 
 
-int initSock(struct sockaddr_in * serv_addr, int port) 
+int initSock(struct sockaddr_in * serv_addr, int * listen_fd, int port) 
 {
 
     /*------------------------------------------------------------------------
         Create a tcp socket for communication with node server (UI) 
     ------------------------------------------------------------------------*/
     struct sockaddr_in * serv_addr1;
+    *listen_fd = socket(AF_INET, SOCK_STREAM, 0);
+
     memset(serv_addr, '0', sizeof(*serv_addr));
 
     serv_addr->sin_family = AF_INET;
@@ -76,6 +108,11 @@ bool initMemory(pthread_mutex_t lock[], int bufferLength)
     {
         if(pthread_mutex_init(&lock[i], NULL) != 0) return false; //init mutex locks
 
+    }
+
+    if(mlockall(MCL_CURRENT|MCL_FUTURE) == -1) {
+       printf("mlockall failed: %m\n");
+       return false;
     }
 
     return true;

@@ -1,6 +1,8 @@
 #include "../unity/src/unity.h"
 #include "InitUtilities.h"
 
+
+
 void setUp (void) {} /* Is run before every test, put unit init calls here. */
 void tearDown (void) {} /* Is run after every test, put unit clean-up calls here. */
 
@@ -18,8 +20,11 @@ void test_initSock(void)
 {
 	struct sockaddr_in serv_addr; 
 	int port = 8081;
+	int listen_fd = 0, conn_fd = 0;
 
-	TEST_ASSERT_EQUAL_INT(initSock(&serv_addr, port), 1);
+	TEST_ASSERT_EQUAL_INT(initSock(&serv_addr, &listen_fd, port), 1);
+
+
 }
 
 void test_initMemory(void)

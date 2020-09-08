@@ -39,7 +39,7 @@ void test_squareMatrix(void)
 {
 	squareMatrix(A,Z);
 	TEST_ASSERT_EQUAL_DOUBLE_ARRAY(B, Z, 4);
-
+	
 }
 
 void test_expMatrix(void)
