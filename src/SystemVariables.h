@@ -12,6 +12,6 @@
 
 #define NSEC_IN_SEC 1000000000.0
 #define STEP_SEC 0.001 
-#define STEP_NSEC STEP_SEC*NSEC_IN_SEC
+#define STEP_NSEC (STEP_SEC*NSEC_IN_SEC)
 
 #endif 

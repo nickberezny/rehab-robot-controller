@@ -111,6 +111,7 @@ build: $(PATHX)
 
 run: build
 	./$(PATHX)test
+	chmod 755 -R data
 
 
 archive:

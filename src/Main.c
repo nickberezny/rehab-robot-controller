@@ -2,22 +2,44 @@
 #include "MathUtilities.h"
 #include "SystemVariables.h"
 #include "Controller.h"
+#include<stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+const bool logData = false;
 
 int listen_fd = 0, conn_fd = 0;
+FILE logFile;
 
 struct controllerData data[BUFFER_SIZE] = {0};
 pthread_mutex_t lock[BUFFER_SIZE]; 
 
 double stepTime = STEP_NSEC;
 
+
+
 int main(int argc, char* argv[]) 
 {
-
 	printf("STARTING...\n");
+	if(!logData) printf("Warning: not logging data...\n");
 	//*stepTime = 
 
-	//initDataLog
+
 	//initDaq
+
+	/***************************************************************
+							INIT Data Log
+	***************************************************************/
+	if(logData)
+	{
+		openLogFile(&logFile);
+
+		double freq = NSEC_IN_SEC/STEP_NSEC;
+		char freq_buff[50];
+		
+		sprintf(freq_buff, "Controller Frequency: %.2f kHz", freq);
+	}
+	
 
 	/***************************************************************
 							INIT THREADS
@@ -59,7 +81,7 @@ int main(int argc, char* argv[])
 	pthread_join(thread[0], NULL);
 
 
-	
+	if(logData) fclose(&logFile);
     close(conn_fd);
     close(listen_fd);
 

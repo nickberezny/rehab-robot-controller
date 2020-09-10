@@ -10,3 +10,8 @@ void writeValues(struct daqData * data)
 {
 	return;
 }
+
+void initDaq()
+{
+	return;
+}
