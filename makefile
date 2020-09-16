@@ -25,6 +25,7 @@ PATHD = build/depends/
 PATHO = build/objs/
 PATHR = build/results/
 PATHX = build/dist/
+PATHI = src/Interface/
 
 
 BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
@@ -107,10 +108,12 @@ clean:
 
 
 build: $(PATHX) 
-	gcc $(SRCS) -o $(PATHX)test $(CFLAGS) $(LIB)
+	#gcc `pkg-config --cflags gtk+-3.0` -o $(PATHX)Interface $(PATHI)Interface.c `pkg-config --libs gtk+-3.0`
+	gcc `pkg-config --cflags gtk+-3.0` $(SRCS) -o $(PATHX)main $(CFLAGS) $(LIB) `pkg-config --libs gtk+-3.0`
+	
 
 run: build
-	./$(PATHX)test
+	./$(PATHX)main
 	chmod 755 -R data
 
 

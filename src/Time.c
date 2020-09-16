@@ -1,3 +1,5 @@
+#include <time.h>
+#include "SystemVariables.h"
 #include "Time.h"
 
 void waitForTime(struct timespec * stepTime, struct timespec * currTime, double * totalTime)

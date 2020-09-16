@@ -1,5 +1,6 @@
-#include "SystemVariables.h"
-#include<time.h>
+#ifndef SYS_STRUCT
+#define SYS_STRUCT
+#include <time.h>
 
 struct daqData {
 
@@ -21,3 +22,13 @@ struct controllerData
 
 
 };
+
+struct controllerParameters
+{
+	double K;
+	double B;
+	double time;
+	double maxVelocity;
+};
+
+#endif

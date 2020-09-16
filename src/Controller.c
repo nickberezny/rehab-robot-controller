@@ -1,4 +1,10 @@
+#include<stdio.h>
+#include "SystemStructures.h"
+#include "SystemVariables.h"
+#include "Daq.h"
+#include "Time.h"
 #include "Controller.h"
+
 
 extern struct controllerData * data; 
 extern double stepTime;

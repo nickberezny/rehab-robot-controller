@@ -16,7 +16,7 @@ void *LoggerThread(void * d)
 	{
 		for(int i = 0; i < BUFFER_SIZE; i++)
 		{
-			data = &((struct controllerData*)d)[i];
+			//data = &((struct controllerData*)d)[i];
 		}
 		break;
 	}
