@@ -16,3 +16,4 @@ void addTextAndEntry(GtkWidget * grid, GtkWidget * text, GtkWidget ** entry, cha
 static void getValues(GtkWidget *widget, gpointer data);
 static void destroy_window( GtkWidget *widget, gpointer data );
 static void checkParameter(GtkWidget *widget, gpointer data);
+void addHeaderText(GtkWidget * grid, GtkWidget * text, char * str, gint row);

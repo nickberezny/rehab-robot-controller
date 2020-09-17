@@ -23,8 +23,8 @@ const bool logData = false;
 int listen_fd = 0, conn_fd = 0;
 FILE logFile;
 
-struct controllerData data[BUFFER_SIZE] = {0};
-struct controllerParameters params; 
+struct controllerData * contData[BUFFER_SIZE];
+struct controllerParameters * params; 
 pthread_mutex_t lock[BUFFER_SIZE]; 
 
 double stepTime = STEP_NSEC;
@@ -33,13 +33,26 @@ double stepTime = STEP_NSEC;
 
 int main(int argc, char* argv[]) 
 {
-	printf("STARTING...\n");
+
 	if(!logData) printf("Warning: not logging data...\n");
+
+
+	for(int i=0; i < BUFFER_SIZE; i++)
+    {
+
+        contData[i] = (struct controllerData*)calloc(CONTROLLER_DATA_ELEMENTS,sizeof(contData[i])); 
+    }
+    
+    //struct controllerParameters *temp2 =  &params;
+    //temp2 =  
+
+    params = (struct controllerParameters*)calloc(CONTROLLER_PARAMETERS_ELEMENTS,sizeof(params));
+    
 	
 	/***************************************************************
 							OPEN UI
 	***************************************************************/
-
+    
 	GtkApplication *app;
 	int status;
 
@@ -49,12 +62,8 @@ int main(int argc, char* argv[])
 	g_object_unref (app);
 
 	
-	printf("Time: %f\n", params.time);
+	//printf("Time: %f\n", params.time);
 	//wait for input from UI
-
-
-
-
 
 	//initDaq
 
@@ -75,7 +84,7 @@ int main(int argc, char* argv[])
 	/***************************************************************
 							INIT THREADS
 	***************************************************************/
-
+    
 	struct sched_param param[NUM_OF_THREADS];
     pthread_attr_t attr[NUM_OF_THREADS];
     pthread_t thread[NUM_OF_THREADS];
@@ -87,8 +96,8 @@ int main(int argc, char* argv[])
 							INIT SOCKET
 	***************************************************************/
 
-	struct sockaddr_in serv_addr;
-	initSock(&serv_addr, &listen_fd, PORT);
+	//struct sockaddr_in serv_addr;
+	//initSock(&serv_addr, &listen_fd, PORT);
 	
 	//TODO****************************
 	//start tcp socket
@@ -100,18 +109,27 @@ int main(int argc, char* argv[])
 					   Initialize Memory
 	***********************************************************************/
 
-	initMemory(lock, BUFFER_SIZE);
+	//initMemory(lock, BUFFER_SIZE);
 
-
-
-	
-	pthread_create(&thread[0], &attr[0], controllerThread, (void *)data);
-	pthread_join(thread[0], NULL);
+	//pthread_create(&thread[0], &attr[0], controllerThread, (void *)contData);
+	//pthread_join(thread[0], NULL);
 
 
 	if(logData) fclose(&logFile);
     close(conn_fd);
     close(listen_fd);
+
+    if(munlockall()==-1)
+    {
+    	printf("unlock failed\n");
+    }
+
+   	for(int i = 0; i < BUFFER_SIZE; i++)
+    {
+        //free(contData[i]);
+    }
+    
+    free(params);
 
 	return 0;
 }

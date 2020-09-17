@@ -21,7 +21,7 @@ void *LoggerThread(void * d)
 		break;
 	}
 
-	return;
+	return NULL;
 }
 
 void openLogFile(FILE * fp)

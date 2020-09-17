@@ -16,9 +16,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-
-#include "InitUtilities.h"
 #include "SystemVariables.h"
+#include "SystemStructures.h"
+#include "InitUtilities.h"
 
 void runFakeSocket(void * d)
 {
@@ -135,6 +135,7 @@ bool initMemory(pthread_mutex_t lock[], int bufferLength)
     return true;
     
 }
+
 
 bool initDataLog(FILE * fp, char * fileName)
 {

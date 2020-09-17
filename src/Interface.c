@@ -1,7 +1,7 @@
 #include "Interface.h"
 #include "SystemStructures.h"
 
-extern struct controllerParameters params;
+extern struct controllerParameters * params;
 
 
 void activate (GtkApplication *app, gpointer user_data)
@@ -19,11 +19,11 @@ void activate (GtkApplication *app, gpointer user_data)
   window = gtk_application_window_new (app);
   gtk_window_set_title (GTK_WINDOW (window), "Window");
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 800);
-  gtk_container_set_border_width(GTK_WINDOW (window), 25);
+  gtk_container_set_border_width(GTK_CONTAINER (window), 25);
 
   grid = gtk_grid_new ();
-  gtk_grid_set_column_spacing (grid, 20);
-  gtk_grid_set_row_spacing (grid, 20);
+  gtk_grid_set_column_spacing (GTK_GRID(grid), 20);
+  gtk_grid_set_row_spacing (GTK_GRID(grid), 20);
 
   for(int i = 0; i < 10; i++)
   {
@@ -62,6 +62,10 @@ void addTextAndEntry(GtkWidget * grid, GtkWidget * text, GtkWidget ** entry, cha
   gtk_grid_attach (GTK_GRID (grid), text, 1, row, 1, 1);
   gtk_grid_attach_next_to (GTK_GRID (grid), *entry, text, GTK_POS_RIGHT, 1, 1);
 
+  char temp[50] = ""; 
+  snprintf(temp, 50, "%f", (max-min)/2.0);
+  gtk_entry_set_text(GTK_ENTRY(*entry), temp);
+
 }
 
 
@@ -83,17 +87,17 @@ static void getValues(GtkWidget *widget, gpointer data)
 
   struct interfaceData * InterfaceData = (struct interfaceData *) data;
 
-  params.time = strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[0])), NULL);
-  params.maxVelocity =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[1])), NULL);
-  params.K =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[2])), NULL);
-  params.B =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[3])), NULL);
+  params->time = strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[0])), NULL);
+  params->maxVelocity =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[1])), NULL);
+  params->K =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[2])), NULL);
+  params->B =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[3])), NULL);
 
   return;
 }
 
 static void destroy_window(GtkWidget *widget, gpointer data)
 {
-  gtk_window_close((GtkWidget*)data);
+  gtk_window_close(GTK_WINDOW((GtkWidget*)data));
 }
 
 static void checkParameter(GtkWidget *widget, gpointer data)
@@ -103,10 +107,9 @@ static void checkParameter(GtkWidget *widget, gpointer data)
   double entryNum = strtod(gtk_entry_get_text(GTK_ENTRY(widget)), &endptr);
   GdkColor color;
 
-  printf("%f,%f\n", ranges->min,ranges->max);
-
   if(strcmp(endptr, "") != 0 || entryNum > ranges->max || entryNum < ranges->min)
   {
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gdk_color_parse( "#ff0000", &color );
     gtk_widget_modify_fg( GTK_WIDGET(widget), GTK_STATE_NORMAL, &color );
   }
@@ -114,6 +117,7 @@ static void checkParameter(GtkWidget *widget, gpointer data)
   {
     gdk_color_parse( "#ffffff", &color );
     gtk_widget_modify_fg( GTK_WIDGET(widget), GTK_STATE_NORMAL, &color );
+    G_GNUC_END_IGNORE_DEPRECATIONS
   }
 
 }

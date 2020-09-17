@@ -2,6 +2,9 @@
 #define SYS_STRUCT
 #include <time.h>
 
+#define CONTROLLER_DATA_ELEMENTS 13
+#define CONTROLLER_PARAMETERS_ELEMENTS 10
+
 struct daqData {
 
 	double x;
@@ -11,9 +14,9 @@ struct daqData {
 struct controllerData
 {
 	struct daqData daq;
-	double xk, vk;
+	double xk, vk, fk;
 	double xdes, vdes;
-	double P, D;
+	double xa, va;
 	double cmd;
 
 	struct timespec startTime; 
@@ -25,10 +28,12 @@ struct controllerData
 
 struct controllerParameters
 {
-	double K;
-	double B;
+	double K, B, M;
+	double *Ad, *Bd;
+	double P, D;
 	double time;
 	double maxVelocity;
+	double x_end;
 };
 
 #endif
