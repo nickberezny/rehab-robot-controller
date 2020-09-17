@@ -1,7 +1,7 @@
 #include "Interface.h"
 #include "SystemStructures.h"
 
-extern struct controllerParameters * params;
+extern struct controllerParameters * controllerParamBuffer;
 
 
 void activate (GtkApplication *app, gpointer user_data)
@@ -87,10 +87,10 @@ static void getValues(GtkWidget *widget, gpointer data)
 
   struct interfaceData * InterfaceData = (struct interfaceData *) data;
 
-  params->time = strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[0])), NULL);
-  params->maxVelocity =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[1])), NULL);
-  params->K =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[2])), NULL);
-  params->B =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[3])), NULL);
+  controllerParamBuffer->time = strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[0])), NULL);
+  controllerParamBuffer->maxVelocity =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[1])), NULL);
+  controllerParamBuffer->K =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[2])), NULL);
+  controllerParamBuffer->B =  strtod(gtk_entry_get_text(GTK_ENTRY(InterfaceData->text_entry[3])), NULL);
 
   return;
 }

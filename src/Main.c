@@ -23,8 +23,12 @@ const bool logData = false;
 int listen_fd = 0, conn_fd = 0;
 FILE logFile;
 
-struct controllerData * contData[BUFFER_SIZE];
-struct controllerParameters * params; 
+
+
+
+struct controllerData * controllerDataBuffer;
+struct controllerParameters * controllerParamBuffer; 
+
 pthread_mutex_t lock[BUFFER_SIZE]; 
 
 double stepTime = STEP_NSEC;
@@ -36,18 +40,21 @@ int main(int argc, char* argv[])
 
 	if(!logData) printf("Warning: not logging data...\n");
 
+	struct controllerData contData[BUFFER_SIZE] = {0};
 
 	for(int i=0; i < BUFFER_SIZE; i++)
     {
-
-        contData[i] = (struct controllerData*)calloc(CONTROLLER_DATA_ELEMENTS,sizeof(contData[i])); 
+    	struct controllerData * tempPtr = &contData[i];
+        tempPtr = (struct controllerData*)calloc(CONTROLLER_DATA_ELEMENTS,sizeof(contData[i])); 
+        contData[i].xk = 3.1456;
     }
     
-    //struct controllerParameters *temp2 =  &params;
-    //temp2 =  
-
+  
+    struct controllerParameters * params; 
     params = (struct controllerParameters*)calloc(CONTROLLER_PARAMETERS_ELEMENTS,sizeof(params));
-    
+    controllerDataBuffer = (struct controllerData*)calloc(CONTROLLER_DATA_ELEMENTS,sizeof(controllerDataBuffer));
+    controllerParamBuffer = (struct controllerParameters*)calloc(CONTROLLER_PARAMETERS_ELEMENTS,sizeof(controllerParamBuffer));
+	
 	
 	/***************************************************************
 							OPEN UI
@@ -109,11 +116,12 @@ int main(int argc, char* argv[])
 					   Initialize Memory
 	***********************************************************************/
 
-	//initMemory(lock, BUFFER_SIZE);
+	if(!initMemory(lock, BUFFER_SIZE)) return;
 
-	//pthread_create(&thread[0], &attr[0], controllerThread, (void *)contData);
-	//pthread_join(thread[0], NULL);
+	pthread_create(&thread[0], &attr[0], controllerThread, (void *)contData);
+	pthread_join(thread[0], NULL);
 
+	printf("Thread Done\n");
 
 	if(logData) fclose(&logFile);
     close(conn_fd);
@@ -124,11 +132,7 @@ int main(int argc, char* argv[])
     	printf("unlock failed\n");
     }
 
-   	for(int i = 0; i < BUFFER_SIZE; i++)
-    {
-        //free(contData[i]);
-    }
-    
+
     free(params);
 
 	return 0;

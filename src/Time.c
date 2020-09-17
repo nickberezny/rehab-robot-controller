@@ -59,5 +59,6 @@ void getStepTime(struct timespec * start, struct timespec * end, struct timespec
 
 void getTime(struct timespec * timePtr)
 {
-    clock_gettime(CLOCK_MONOTONIC, timePtr);
+    //clock_gettime(CLOCK_MONOTONIC, timePtr);
+    return;
 }

@@ -6,7 +6,7 @@
 #include "Controller.h"
 
 
-extern struct controllerData * contData; 
+extern struct controllerData * controllerDataBuffer; 
 //extern struct controllerParameters
 extern double stepTime;
 
@@ -17,25 +17,26 @@ void *controllerThread(void * d)
 
 	while(1)
 	{
-		for(int i = 0; i < BUFFER_SIZE; i++)
+		for(int i = 0; i < 10; i++)
 		{
-			contData = &((struct controllerData*)d)[i];
+			controllerDataBuffer = &((struct controllerData*)d)[i];
 
-			getTime(&contData->startTime); //get initial time
+			printf("%f\n", controllerDataBuffer->xk);
 
-			//read values
-			readValues(&contData->daq);
+			//getTime(&(controllerDataBuffer->startTime)); //get initial time
+
+			//read valuess
+			readValues(&(controllerDataBuffer->daq));
 
 			//do calcs
 			//positionPD(data);
 
 			//write values?
-			writeValues(&contData->daq);
+			writeValues(&(controllerDataBuffer->daq));
 
 			//wait
-			waitForRestOfStep(contData, &stepTime);
-			
-
+			//waitForRestOfStep(&controllerDataBuffer, &stepTime);
+			printf("a\n");
 		}
 
 		break;

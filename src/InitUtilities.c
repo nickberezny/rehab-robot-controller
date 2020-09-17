@@ -126,12 +126,12 @@ bool initMemory(pthread_mutex_t lock[], int bufferLength)
         if(pthread_mutex_init(&lock[i], NULL) != 0) return false; //init mutex locks
 
     }
-
+    
     if(mlockall(MCL_CURRENT|MCL_FUTURE) == -1) {
        printf("mlockall failed: %m\n");
        return false;
     }
-
+    
     return true;
     
 }
