@@ -61,11 +61,60 @@ void test_factorial(void)
 	TEST_ASSERT_EQUAL_DOUBLE(3628800.0,ans);
 }
 
+void test_matrixVectorMultiplication(void)
+{
+	double array[3][3] = {1,2,3,4,5,6,7,8,9};
+	double vector[3] = {1,2,3};
+	double result[3];
+	matrixVectorMultiplication(array, vector, result);
+	double ans[3] = {14,32,50};
+
+	TEST_ASSERT_EQUAL_DOUBLE_ARRAY(ans, result, 3);
+
+	double vector2[3] = {0,0,0};
+	matrixVectorMultiplication(array, vector2, result);
+	double ans2[3] = {0,0,0};
+
+	TEST_ASSERT_EQUAL_DOUBLE_ARRAY(ans2, result, 3);
+}
+
+void test_vectorMatrixMultiplication(void)
+{
+	double array[3][3] = {1,2,3,4,5,6,7,8,9};
+	double vector[3] = {1,2,3};
+	double result[3];
+	vectorMatrixMultiplication(array, vector, result);
+	double ans[3] = {30,36,42};
+
+	TEST_ASSERT_EQUAL_DOUBLE_ARRAY(ans, result, 3);
+
+	double vector2[3] = {0,0,0};
+	vectorMatrixMultiplication(array, vector2, result);
+	double ans2[3] = {0,0,0};
+
+	TEST_ASSERT_EQUAL_DOUBLE_ARRAY(ans2, result, 3);
+}
+
+void test_backshiftDoubleArray(void)  
+{
+	double array[4] = {1,2,3,4};
+	double ans[4] = {9,1,2,3};
+
+	backshiftDoubleArray(array, 9, 4);
+
+	TEST_ASSERT_EQUAL_DOUBLE_ARRAY(ans, array, 4);
+
+}
+
+
 int main(void)
 {
 	UNITY_BEGIN();
 	RUN_TEST(test_squareMatrix);
 	RUN_TEST(test_factorial);
 	RUN_TEST(test_invertMatrix);
+	RUN_TEST(test_matrixVectorMultiplication);
+	RUN_TEST(test_vectorMatrixMultiplication);
+	RUN_TEST(test_backshiftDoubleArray);
 	return UNITY_END();
 }

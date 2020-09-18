@@ -36,4 +36,15 @@ struct controllerParameters
 	double x_end;
 };
 
+struct impedanceRLS
+{
+	double * y;
+	double * phi;
+	double ** theta;
+	double * L;
+	double ** P;
+	double K, M, B;
+	double lambda;
+};
+
 #endif

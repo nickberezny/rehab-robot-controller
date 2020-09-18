@@ -1,4 +1,4 @@
-test/TestTime.c:55:test_getStepTime:PASS
+test/TestTime.c:58:test_getStepTime:PASS
 
 -----------------------
 1 Tests 0 Failures 0 Ignored 

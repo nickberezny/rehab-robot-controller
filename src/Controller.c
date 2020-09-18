@@ -4,6 +4,7 @@
 #include "Daq.h"
 #include "Time.h"
 #include "Controller.h"
+#include "MathUtilities.h"
 
 
 extern struct controllerData * controllerDataBuffer; 
@@ -20,9 +21,6 @@ void *controllerThread(void * d)
 		for(int i = 0; i < 10; i++)
 		{
 			controllerDataBuffer = &((struct controllerData*)d)[i];
-
-			printf("%f\n", controllerDataBuffer->xk);
-
 			//getTime(&(controllerDataBuffer->startTime)); //get initial time
 
 			//read valuess
@@ -36,7 +34,7 @@ void *controllerThread(void * d)
 
 			//wait
 			//waitForRestOfStep(&controllerDataBuffer, &stepTime);
-			printf("a\n");
+
 		}
 
 		break;
@@ -90,3 +88,21 @@ void impedance(struct controllerData * data, struct controllerParameters * param
 {
 	data->cmd = params->K*(data->xk - data->xdes) + params->B*(data->vk - data->vdes);
 }
+
+void impedanceRLS(struct impedanceRLS * imp, struct controllerData * data)
+{
+	/*
+	backshiftDoubleArray(imp->phi, data->xk, 3);
+	backshiftDoubleArray(imp->y, data->fk, 3);
+	backshiftDoubleArray(imp->theta, imp->theta[0], 2);
+	backshiftDoubleArray(imp->P, 0.0, 2);
+	*/
+	imp->y[0] += 2.0*imp->y[1] + imp->y[2];
+
+	for(int i = 0; i < 3; i++)
+	{
+		
+	}
+
+}
+

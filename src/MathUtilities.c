@@ -109,3 +109,35 @@ void invertMatrix(double A[2][2], double B[2][2])
 
 	return;
 }
+
+void matrixVectorMultiplication(double array[3][3], double vector[3], double newVector[3])
+{
+
+	for(int i = 0; i < 3; i++)
+	{
+		newVector[i] = array[i][0]*vector[0] + array[i][1]*vector[1] + array[i][2]*vector[2];
+	}
+
+	return;
+}
+
+void vectorMatrixMultiplication(double array[3][3], double vector[3], double newVector[3])
+{
+	
+	for(int i = 0; i < 3; i++)
+	{
+		newVector[i] = array[0][i]*vector[0] + array[1][i]*vector[1] + array[2][i]*vector[2];
+	}
+
+	return;
+}
+
+void backshiftDoubleArray(double * array, double newValue, int size)
+{
+	for(int i = size - 1; i > 0; i--)
+	{
+		array[i] = array[i-1];
+	}
+
+	array[0] = newValue;
+}

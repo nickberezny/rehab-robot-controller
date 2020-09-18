@@ -14,6 +14,7 @@
 #include "InitUtilities.h"
 #include "MathUtilities.h"
 #include "SystemVariables.h"
+#include "SystemStructures.h"
 #include "Controller.h"
 #include "Logger.h"
 

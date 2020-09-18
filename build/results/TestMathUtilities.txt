@@ -1,7 +1,10 @@
-test/TestMathUtilities.c:67:test_squareMatrix:PASS
-test/TestMathUtilities.c:68:test_factorial:PASS
-test/TestMathUtilities.c:69:test_invertMatrix:PASS
+test/TestMathUtilities.c:113:test_squareMatrix:PASS
+test/TestMathUtilities.c:114:test_factorial:PASS
+test/TestMathUtilities.c:115:test_invertMatrix:PASS
+test/TestMathUtilities.c:116:test_matrixVectorMultiplication:PASS
+test/TestMathUtilities.c:117:test_vectorMatrixMultiplication:PASS
+test/TestMathUtilities.c:118:test_backshiftDoubleArray:PASS
 
 -----------------------
-3 Tests 0 Failures 0 Ignored 
+6 Tests 0 Failures 0 Ignored 
 OK
