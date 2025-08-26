@@ -259,15 +259,15 @@ void * controllerThread (void * d)
         }
 
         //ctl***************
-        
+        s->cmd = s->cmd/0.385;
         s->cmd += 2.5; 
         //printf("cmd : %f\n",s->cmd);
 
-        if(s->cmd > 4) s->cmd = 4;
-        if(s->cmd < 1) s->cmd = 1;
+        if(s->cmd > 3.5) s->cmd = 3.5;
+        if(s->cmd < 1.5) s->cmd = 1.5;
 
-        if(s->lsb & s->cmd < 2.5) s->cmd = 2.5;
-        if(s->lsf & s->cmd > 2.5) s->cmd = 2.5;
+        //if(s->lsb & s->cmd < 2.5) s->cmd = 2.5;
+        //if(s->lsf & s->cmd > 2.5) s->cmd = 2.5;
 
         if(quitThreads) s->cmd = 2.5;
 

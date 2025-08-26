@@ -37,6 +37,7 @@
 #include "./include/Log.h"
 #include "./include/Communication.h"
 #include "./include/Client.h"
+
 #include "./include/Tensorflow.h"
 #include "./include/ReadProcessFile.h"
 #include "./include/PreRun.h"
@@ -230,8 +231,14 @@ int main(int argc, char* argv[])
                 sendMessage(&sockfd, "UI::STARTTASK::");
                 //run fn
                 //CalibrateForceOffset(d,daq);
+
                 tareForceSensor(daq->fdata);
                 CalibrateFSR(d, daq);
+
+                startForceSensorStream(daq->fdata);
+                CalibrateForceOffset(d,daq);
+
+                printf("f offset %f\n",daq->f_offset);
 
                 sleep(1);
                 sprintf(sendData, "UI::CALIBRATE");
@@ -286,8 +293,8 @@ int main(int argc, char* argv[])
                 printf("Bd: %f, %f\n",B[0],B[1]);
 
                 controlParams->dx_bound = 0.01;
-                controlParams->m = 0.695;//0.695;//0.858;//1.0/0.8041;
-                controlParams->c = 0.75;//0.35;//1.096/0.8041;
+                controlParams->m = 0.045;//0.695;//0.695;//0.858;//1.0/0.8041;
+                controlParams->c = 0.0;//0.75;//0.35;//1.096/0.8041;
 
                 if(controlParams->controlMode == UIC_MODE)
                 {
@@ -627,7 +634,7 @@ void ReadyController(struct States * data, pthread_attr_t *attr, pthread_t *thre
         pthread_mutex_unlock(&data[i].lock);
     }
 
-    startForceSensorStream(daq->fdata);
+   
 
     //*************Lock Memory*******************
 

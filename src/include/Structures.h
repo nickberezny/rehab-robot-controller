@@ -148,6 +148,7 @@ struct DAQ {
 	struct ForceSensorData *fdata;
 
 	double FSR1,FSR2;
+	double f_offset;
 	
 };
 

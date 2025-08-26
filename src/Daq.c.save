@@ -106,11 +106,7 @@ void ReadWriteDAQ(struct States * s, struct DAQ * daq)
     s->Text = daq->fdata->T[1];
 
     //s->emg3 = -daq->fdata->F[2]
-    //s->Fext = 0.4*(-62.0*(daq->aValues[3] - daq->FSR1) + 119.98*(daq->aValues[4] -  daq->FSR2));
-
-    //s->Fext = 0.0;
-
-    if(s->t<1) s->Fext = 0.1;
+    s->Fext = 0.4*(-62.0*(daq->aValues[3] - daq->FSR1) + 119.98*(daq->aValues[4] -  daq->FSR2));
 
     //if(s->Fext > 100.0) s->Fext = 100.0;
     //if(s->Fext < -100.0) s->Fext = -100.0;
@@ -122,7 +118,7 @@ void ReadWriteDAQ(struct States * s, struct DAQ * daq)
     s->T[1] = daq->fdata->T[1];
     s->T[2] = daq->fdata->T[2];
 
-    //s->Fext = 0.4*s->F[2]-daq->f_offset;// controlParams->Fext_offset;
+    //s->Fext = -0.4*s->F[2]-daq->f_offset;// controlParams->Fext_offset;
 
     s->lsb = daq->aValues[2];
     s->lsf = daq->aValues[1];

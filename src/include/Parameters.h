@@ -8,7 +8,7 @@
 
 #define NUMBER_OF_THREADS 3
 #define NSEC_IN_SEC 1000000000.0
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 40
 #define STEP_SIZE_MS 1.0
 #define DAQ_NUM_OF_CH 9
 #define MAT_EXP_ITERATIONS 50
@@ -51,7 +51,7 @@
 #define CMD_OFFSET 2.51
 #define MOTOR_KT 38.5 //mNm 
 
-#define ENC_TO_M 0.0000046 //0.00115
+#define ENC_TO_M 0.0000046 // 0.0002371
 
 #define MD_TEST 5.0
 #define BD_TEST 10.0

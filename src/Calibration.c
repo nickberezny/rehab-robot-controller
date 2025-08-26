@@ -63,6 +63,7 @@ void CalibrateForceOffset(struct States * s, struct DAQ * daq)
     double gyro1 = 0;
     double gyro2 = 0;
     int samples = 3000;
+    daq->f_offset = 0.0;
 
     for(int i = 0; i < samples; i++)
     {
@@ -76,7 +77,7 @@ void CalibrateForceOffset(struct States * s, struct DAQ * daq)
 
     controlParams->gyro_offset[0] = gyro1/((double)samples);
     controlParams->gyro_offset[1] = gyro2/((double)samples);
-    controlParams->Fext_offset = force/((double)samples);
+    daq->f_offset = force/((double)samples);
     printf("Force offset: %f\n", controlParams->Fext_offset);
 }
 
